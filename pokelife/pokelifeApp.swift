@@ -1,17 +1,13 @@
-//
-//  pokelifeApp.swift
-//  pokelife
-//
-//  Created by Student on 4/27/26.
-//
 
 import SwiftUI
 
 @main
 struct pokelifeApp: App {
+    @State private var gameModel = GameModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(model: gameModel)
         }
     }
 }

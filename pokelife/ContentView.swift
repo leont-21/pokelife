@@ -1,13 +1,7 @@
-//
-//  ContentView.swift
-//  pokelife
-//
-//  Created by Student on 4/27/26.
-//
 
 import SwiftUI
 
-struct ContentView: View {
+struct ContentView: View { // add Model parameter
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -15,10 +9,5 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
             Text("Hello, world!")
         }
-        .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }
