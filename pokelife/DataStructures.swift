@@ -1,9 +1,3 @@
-//
-//  DataStructures.swift
-//  pokelife
-//
-//  Created by Student on 4/27/26.
-//
 
 import Foundation
 import SwiftUI
@@ -56,4 +50,10 @@ struct Task {
     let points : Int //Amount of points gained for one completion of task
     let systemIcon : String //system icon used for the task
     let taskText : String
+}
+
+enum SelectedMenu { // selected screen
+    case start
+    case main
+    case gacha
 }
