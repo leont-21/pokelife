@@ -7,7 +7,8 @@ struct pokelifeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()//model: gameModel)
+            ContentView()
+                .environment(gameModel)
         }
     }
 }
