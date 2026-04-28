@@ -1,54 +1,54 @@
 import SwiftUI
 
 struct StartingScreen: View {
-    @State private var navigateToMain = false
-        
+    var onStart: (() -> Void)? = nil
+    
     var body: some View {
-        NavigationStack {
-            ZStack{
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.red, Color.white]),
-                    startPoint: .top, endPoint: .bottom)
-                .ignoresSafeArea()
-                VStack(spacing: 100) {
-                    Text("PokéLife")
-                        .font(.system(size: 80, weight: .bold, design: .rounded))
-                        .foregroundColor(.white)
-                        .shadow(color: .black, radius: 2, x: 0, y: 2)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                    
-                    Button("Start Journey") {
-                        navigateToMain = true
-                    }
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.black)
-                    .padding(.horizontal, 40)
-                    .padding(.vertical, 15)
-                    .background(
+        ZStack{
+            VStack(spacing: 0) {
+                Color.red
+                Rectangle()
+                    .fill(Color.black)
+                    .frame(height: 25)
+                Color.white
+            }
+            .ignoresSafeArea()
+            VStack (spacing: -10){
+                Spacer()
+                    .frame(height: 100)
+                Text("PokéLife")
+                    .font(.system(size: 80, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                    .shadow(color: .black, radius: 2, x: 0, y: 2)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                    .padding(.top, 16)
+                Spacer()
+                Button(action: { onStart?() }) {
+                    ZStack {
                         Circle()
                             .fill(Color.white)
                             .overlay(
                                 Circle()
-                                    .strokeBorder(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [Color.red, Color.white]),
-                                            startPoint: .top,
-                                            endPoint: .bottom
-                                        ),
-                                        lineWidth: 2
-                                    )
+                                    .strokeBorder(Color.black, lineWidth: 5)
                             )
                             .frame(width: 170, height: 170)
-                    )
-                    .frame(maxWidth: .infinity)
+                        Text("Start Journey")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color.black)
+                    }
                 }
+                .buttonStyle(.plain)
+                Spacer()
+                    .frame(height: 325)
+                
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
     }
 }
 
 #Preview {
-    StartingScreen()
+    StartingScreen(onStart: {})
 }
