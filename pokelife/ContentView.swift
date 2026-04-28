@@ -6,11 +6,11 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            StartingScreen()
+            StartingScreen(path: $path)
                 .navigationDestination(for: SelectedMenu.self) { menu in
                     switch menu {
                     case .start:
-                        StartingScreen()
+                        StartingScreen(path: $path)
                     case .main:
                         MainScreen()
                     case .gacha:

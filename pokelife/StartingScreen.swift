@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StartingScreen: View {
-    var onStart: (() -> Void)? = nil
+    @Binding var path: [SelectedMenu]
     
     var body: some View {
         ZStack{
@@ -13,7 +13,7 @@ struct StartingScreen: View {
                 Color.white
             }
             .ignoresSafeArea()
-            VStack (spacing: -10){
+            VStack {
                 Spacer()
                     .frame(height: 100)
                 Text("PokéLife")
@@ -24,7 +24,7 @@ struct StartingScreen: View {
                     .padding(.horizontal)
                     .padding(.top, 16)
                 Spacer()
-                Button(action: { onStart?() }) {
+                Button(action: { path.append(.main) }) {
                     ZStack {
                         Circle()
                             .fill(Color.white)
@@ -41,7 +41,7 @@ struct StartingScreen: View {
                 }
                 .buttonStyle(.plain)
                 Spacer()
-                    .frame(height: 325)
+                    .frame(height: 310)
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -50,5 +50,5 @@ struct StartingScreen: View {
 }
 
 #Preview {
-    StartingScreen(onStart: {})
+    StartingScreen(path: .constant([]))
 }
