@@ -1,17 +1,24 @@
 import SwiftUI
 
 struct StartingScreen: View {
+    @State private var navigateToMain = false
+        
     var body: some View {
-        VStack {
-            Image(systemName: "play")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                Text("PokéLife")
+                
+                Button("Start Journey") {
+                    navigateToMain = true
+                }
+            }
+            .fullScreenCover(isPresented: $navigateToMain) {
+                MainScreen()
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    StartingScreen()
 }
