@@ -13,7 +13,9 @@ struct Task {
     let points : Int //Amount of points gained for one completion of task
     let systemIcon : String //system icon used for the task
     let taskText : String
-enum selectedMenu {
+}
+
+enum SelectedMenu { // selected screen
     case start
     case main
     case gacha
