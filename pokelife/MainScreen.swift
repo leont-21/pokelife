@@ -1,17 +1,17 @@
 import SwiftUI
 
-struct MainScreen {
+struct MainScreen: View {
+    @Environment(\.dismiss) var dismiss
     var body: some View {
-        VStack {
-            Image(systemName: "play")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        Text("Coming Soon!")
+            .font(.largeTitle)
+            .padding()
+        Button("Go Back to Starting Screen"){
+            dismiss()
         }
-        .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    MainScreen()
 }
