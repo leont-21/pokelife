@@ -55,12 +55,27 @@ struct MainScreen: View {
         }
                 .padding()
                     
+<<<<<<< HEAD
                 Button(action: {
                     dismiss()
                 }) {
                     HStack{
                         Image(systemName: "arrow.left.circle.fill")
                             .font(.headline)
+=======
+                    NavigationLink(destination: GachaScreen()) {
+                        Text("Go to Gacha Screen")
+                    }
+                    .padding()
+            
+                    NavigationLink(destination: CollectionScreen()) {
+                        Text("Go to Collection Screen")
+                    }
+            
+                    Button(action: {
+                        dismiss()
+                    }) {
+>>>>>>> main
                         Text("Go Back to Starting Screen")
                             .font(.system(size: 18, weight: .bold, design: .rounded))
                     }

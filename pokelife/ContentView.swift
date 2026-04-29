@@ -15,6 +15,8 @@ struct ContentView: View {
                         MainScreen()
                     case .gacha:
                         GachaScreen()
+                    case .collection:
+                        CollectionScreen()
                     }
                 }
         }
