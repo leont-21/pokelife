@@ -4,7 +4,7 @@ import SwiftUI
 
 struct Pokemon : Identifiable, Decodable {
     let id : Int
-    let sprites : [String: String?]
+    let sprites : Sprites
     let name : String
     let shiny : Bool
     
@@ -22,8 +22,8 @@ struct Pokemon : Identifiable, Decodable {
     init (from decoder: Decoder) throws {
         let pokemon = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try pokemon.decode(Int.self, forKey: .id)
-        self.name = try pokemon.decode(String.self, forKey: .sprites)
-        self.sprites = try pokemon.decode([String: String?].self, forKey: .sprites)
+        self.name = try pokemon.decode(String.self, forKey: .name)
+        self.sprites = try pokemon.decode(Sprites.self, forKey: .sprites)
         
         shiny = false
     }
@@ -32,21 +32,34 @@ struct Pokemon : Identifiable, Decodable {
     init (from decoder: Decoder, shiny_s : Bool) throws {
         let pokemon = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try pokemon.decode(Int.self, forKey: .id)
-        self.name = try pokemon.decode(String.self, forKey: .sprites)
-        self.sprites = try pokemon.decode([String: String?].self, forKey: .sprites)
+        self.name = try pokemon.decode(String.self, forKey: .name)
+        self.sprites = try pokemon.decode(Sprites.self, forKey: .sprites)
         
         shiny = shiny_s
     }
     
     //debug: Directly create a pokemon without use of a json object
-    init (id : Int, sprites : [String: String?], name : String, shiny : Bool) {
+    init (id : Int, sprite_path : Sprites, name : String, shiny : Bool) {
         self.id = id
         self.name = name
         self.shiny = shiny
-        self.sprites = sprites
+        self.sprites = sprite_path
     }
 }
 
+struct Sprites: Decodable {
+    let frontDefault: String?
+    let frontShiny: String?
+    let backDefault: String?
+    let backShiny: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case frontDefault = "front_default"
+        case frontShiny = "front_shiny"
+        case backDefault = "back_default"
+        case backShiny = "back_shiny"
+    }
+}
 
 struct Task {
     let points : Int //Amount of points gained for one completion of task
