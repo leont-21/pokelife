@@ -31,7 +31,11 @@ struct MainScreen: View {
                         Text("Go to Gacha Screen")
                     }
                     .padding()
-                    
+            
+                    NavigationLink(destination: CollectionScreen()) {
+                        Text("Go to Collection Screen")
+                    }
+            
                     Button(action: {
                         dismiss()
                     }) {

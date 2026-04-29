@@ -56,4 +56,5 @@ enum SelectedMenu { // selected screen
     case start
     case main
     case gacha
+    case collection
 }
