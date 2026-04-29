@@ -19,7 +19,7 @@ class NetworkClient {
         do {
             let (data, response) = try await URLSession.shared.data(from: urlUnwrapped)
             let _ = response as! HTTPURLResponse
-            let pokemon: Pokemon = try JSONDecoder().decode(Pokemon.self, from: data)
+            let _: Pokemon = try JSONDecoder().decode(Pokemon.self, from: data)
         } catch let error {
             print(error)
         }
