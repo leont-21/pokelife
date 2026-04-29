@@ -8,25 +8,61 @@ struct MainScreen: View {
             ]
     
     var body: some View {
-        VStack {
+        VStack (spacing: 8){
             Text("POKÉ TASKS")
-                .font(.largeTitle)
-                    ScrollView {
-                        VStack {
-                            ForEach(tasks, id: \.self) { task in
-                                HStack {
-                                    Text("⭐")
-                                    Text(task)
-                                    Spacer()
-                                    Button(action: {}) {
-                                        Text("✓")
-                                    }
+                .font(.system(size: 50, weight: .bold, design: .rounded))
+                .foregroundColor(.white)
+                .shadow(color: .red, radius: 9, x: 0, y: 2)
+            Text("✨Complete your daily training! ✨")
+                .font(.system(size: 20, weight: .medium, design: .rounded))
+                .foregroundColor(.white)
+                .shadow(color: .black, radius: 1, x: 0, y: 1)
+            }
+            ScrollView {
+                VStack {
+                    ForEach(tasks, id: \.self) { task in
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                                .font(.system(size: 22))
+                            Text(task)
+                                .font(.system(size: 17, weight: .medium, design: .rounded))
+                                .foregroundColor(.black)
+                            Spacer()
+                            Button(action: {}) {
+                                Text("✓")
+                                //add action here
                                 }
-                                .padding()
                             }
+                            .padding()
                         }
                     }
+                }
+        NavigationLink(destination: GachaScreen()) {
+            HStack{
+                Image(systemName: "gift.fill")
+                    .font(.headline)
+                Text("Go to Gacha Screen")
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
+            }
+            .foregroundStyle(.white)
+            .frame(maxWidth: .infinity)
+            .background(Color.green)
+            .overlay(
+                RoundedRectangle(cornerRadius: 25)
+                    .strokeBorder(Color.black, lineWidth: 3)
+            )
+        }
+                .padding()
                     
+<<<<<<< HEAD
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack{
+                        Image(systemName: "arrow.left.circle.fill")
+                            .font(.headline)
+=======
                     NavigationLink(destination: GachaScreen()) {
                         Text("Go to Gacha Screen")
                     }
@@ -39,11 +75,19 @@ struct MainScreen: View {
                     Button(action: {
                         dismiss()
                     }) {
+>>>>>>> main
                         Text("Go Back to Starting Screen")
+                            .font(.system(size: 18, weight: .bold, design: .rounded))
                     }
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .strokeBorder(Color.black, lineWidth: 3)
+                        )
+                }
             .padding()
-        }
-        .padding()
         .navigationBarHidden(true)
     }
 }
