@@ -4,7 +4,7 @@ import SwiftUI
 
 struct Pokemon : Identifiable, Decodable {
     let id : Int
-    let sprite_path : String
+    let sprites : [String: String?]
     let name : String
     let shiny : Bool
     
@@ -16,18 +16,14 @@ struct Pokemon : Identifiable, Decodable {
         case sprites
     }
     
-    enum CodingKeys2 : String, CodingKey {
-        case front_default
-    }
+
     
     //custom decoder, default, sets shiny to false
     init (from decoder: Decoder) throws {
         let pokemon = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try pokemon.decode(Int.self, forKey: .id)
         self.name = try pokemon.decode(String.self, forKey: .sprites)
-        
-        let sprites = try pokemon.nestedContainer(keyedBy: CodingKeys2.self, forKey: .sprites)
-        self.sprite_path = try sprites.decode(String.self, forKey: .front_default)
+        self.sprites = try pokemon.decode([String: String?].self, forKey: .sprites)
         
         shiny = false
     }
@@ -37,11 +33,17 @@ struct Pokemon : Identifiable, Decodable {
         let pokemon = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try pokemon.decode(Int.self, forKey: .id)
         self.name = try pokemon.decode(String.self, forKey: .sprites)
-        
-        let sprites = try pokemon.nestedContainer(keyedBy: CodingKeys2.self, forKey: .sprites)
-        self.sprite_path = try sprites.decode(String.self, forKey: .front_default)
+        self.sprites = try pokemon.decode([String: String?].self, forKey: .sprites)
         
         shiny = shiny_s
+    }
+    
+    //debug: Directly create a pokemon without use of a json object
+    init (id : Int, sprites : [String: String?], name : String, shiny : Bool) {
+        self.id = id
+        self.name = name
+        self.shiny = shiny
+        self.sprites = sprites
     }
 }
 

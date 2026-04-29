@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct CollectionScreen: View {
+    @Environment(GameModel.self) private var model: GameModel
+
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    
     }
 }
 
 #Preview {
     CollectionScreen()
+        .environment(GameModel())
 }
