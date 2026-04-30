@@ -12,7 +12,9 @@ struct CollectionScreen: View {
 
     
     var body: some View {
-    
+        ForEach(model.pokemonCollection, id: \.self) { pokemonID in
+            PokemonView()
+        }
     }
 }
 
