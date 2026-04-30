@@ -8,54 +8,92 @@ struct MainScreen: View {
     ]
     
     var body: some View {
-        VStack (spacing: 8){
-            Text("POKÉ TASKS")
-                .font(.system(size: 50, weight: .bold, design: .rounded))
-                .foregroundColor(.white)
-                .shadow(color: .red, radius: 9, x: 0, y: 2)
-            Text("✨Complete your daily training! ✨")
-                .font(.system(size: 20, weight: .medium, design: .rounded))
-                .foregroundColor(.white)
-                .shadow(color: .black, radius: 1, x: 0, y: 1)
-        }
-        ScrollView {
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    Color(red: 1.0, green: 0.85, blue: 0.9),
+                    Color(red: 0.9, green: 0.85, blue: 1.0)
+                ]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
             VStack {
-                ForEach(tasks, id: \.self) { task in
-                    HStack {
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
-                            .font(.system(size: 22))
-                        Text(task)
-                            .font(.system(size: 17, weight: .medium, design: .rounded))
-                            .foregroundColor(.black)
-                        Spacer()
-                        Button(action: {}) {
-                            Text("✓")
-                            //add action here
+                VStack(spacing: 8) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "sparkle")
+                            .foregroundColor(.pink)
+                            .font(.title)
+                        Text("POKÉ TASKS")
+                            .font(.system(size: 40, weight: .heavy, design: .rounded))
+                            .foregroundColor(Color(red: 0.8, green: 0.3, blue: 0.5))
+                        Image(systemName: "sparkle")
+                            .foregroundColor(.pink)
+                            .font(.title)
+                    }
+                    Text("✨Complete your daily adventures! ✨")
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
+                        .foregroundColor(Color(red: 0.7, green: 0.4, blue: 0.6))
+                }
+                .padding(.top, 30)
+                .padding(.bottom, 20)
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(tasks, id: \.self) { task in
+                            HStack {
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.yellow)
+                                    .font(.system(size: 16))
+                                Text(task)
+                                    .font(.system(size: 17, weight: .medium, design: .rounded))
+                                    .foregroundColor(.black)
+                                Spacer()
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.white.opacity(0.5))
+                                        .frame(width: 30, height: 30)
+                                    Button(action: {}) {
+                                        Text("✓")
+                                            .foregroundColor(.green)
+                                            .font(.system(size: 14, weight: .bold))
+                                        //remember to add action
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.white.opacity(0.7))
+                                    .shadow(color: Color.pink.opacity(0.2), radius: 5, x: 0, y: 2)
+                            )
+                            .padding(.horizontal, 16)
                         }
                     }
-                    .padding()
                 }
-            }
-        }
-        VStack(spacing: 12) {
-            NavigationLink(destination: GachaScreen()) {
-                HStack {
-                    Image(systemName: "gift.fill")
-                        .font(.headline)
-                    Text("Go to Gacha Screen")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                VStack(spacing: 12) {
+                    NavigationLink(destination: GachaScreen()) {
+                        HStack {
+                            Image(systemName: "gift.fill")
+                                .font(.headline)
+                            Text("Go to Gacha Screen")
+                                .font(.system(size: 18, weight: .semibold, design: .rounded))
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(
-                    LinearGradient(gradient: Gradient(colors: [Color.purple, Color.blue]),startPoint: .leading, endPoint: .trailing)
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.purple, Color.blue]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                        .cornerRadius(15)
+                        .cornerRadius(25)
                         .overlay(
-                    RoundedRectangle(cornerRadius: 15)
-                        .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 15)
+                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
                         )
                         .shadow(color: .blue.opacity(0.4), radius: 5, x: 0, y: 3)
                     }
@@ -65,21 +103,24 @@ struct MainScreen: View {
                             Image(systemName: "box.fill")
                                 .font(.headline)
                             Text("Go to Collection Screen")
-                                .font(.system(size: 18, weight: .bold, design: .rounded))
+                                .font(.system(size: 18, weight: .semibold, design: .rounded))
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(
-                            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.pink]),
-                                         startPoint: .leading, endPoint: .trailing)
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.blue, Color.pink]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                        .cornerRadius(15)
+                        .cornerRadius(25)
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
                                 .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
                         )
-                        .shadow(color: .pink.opacity(0.4), radius: 5, x: 0, y: 3)
+                        .shadow(color: .pink.opacity(0.3), radius: 5, x: 0, y: 3)
                     }
                     
                     Button(action: {
@@ -89,16 +130,19 @@ struct MainScreen: View {
                             Image(systemName: "arrow.left.circle.fill")
                                 .font(.headline)
                             Text("Go to Starting Screen")
-                                .font(.system(size: 18, weight: .bold, design: .rounded))
+                                .font(.system(size: 18, weight: .semibold, design: .rounded))
                         }
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(
-                            LinearGradient(gradient: Gradient(colors: [Color.pink, Color.mint]),
-                                         startPoint: .leading, endPoint: .trailing)
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.pink, Color.mint]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                        .cornerRadius(15)
+                        .cornerRadius(25)
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
                                 .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
@@ -107,12 +151,13 @@ struct MainScreen: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 20)
-                
-                .navigationBarHidden(true)
+                .padding(.top, 20)
+                .padding(.bottom, 30)
             }
         }
-
+        .navigationBarHidden(true)
+    }
+}
 
 #Preview {
     MainScreen()
