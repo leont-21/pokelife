@@ -129,7 +129,7 @@ struct MainScreen: View {
                         HStack {
                             Image(systemName: "arrow.left.circle.fill")
                                 .font(.headline)
-                            Text("Go to Starting Screen")
+                            Text("Go Back")
                                 .font(.system(size: 18, weight: .semibold, design: .rounded))
                         }
                         .foregroundColor(.white)
