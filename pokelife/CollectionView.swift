@@ -31,6 +31,7 @@ struct CollectionScreen: View {
                 .padding(.bottom, 20)
                 
                 Spacer()
+                // Pokemon list made with a lazy grid
                 VStack(spacing: 20) {
                     Image(systemName: "sparkles")
                         .font(.system(size: 80))
