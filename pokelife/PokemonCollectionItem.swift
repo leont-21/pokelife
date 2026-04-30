@@ -27,6 +27,7 @@ struct PokemonCollectionItem: View {
     }
 }
 
-#Preview {
-    PokemonCollectionItem(pokemon: Pokemon(id: 67, sprites: ["front_default" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png"] , name: "aegislash shield", shiny:false))
-}
+// Fix Preview
+//#Preview {
+//    PokemonCollectionItem(pokemon: Pokemon(id: 67, sprite_path: ["front_default" : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png"], name: "aegislash shield", shiny:false))
+//}
