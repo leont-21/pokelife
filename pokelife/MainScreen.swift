@@ -38,65 +38,80 @@ struct MainScreen: View {
                 }
             }
         }
-        NavigationLink(destination: GachaScreen()) {
-            HStack{
-                Image(systemName: "gift.fill")
-                    .font(.headline)
-                Text("Go to Gacha Screen")
-                    .font(.system(size: 18, weight: .bold, design: .rounded))
-            }
-            .foregroundStyle(.white)
-            .frame(maxWidth: .infinity)
-            .background(Color.green)
-            .overlay(
-                RoundedRectangle(cornerRadius: 25)
-                    .strokeBorder(Color.black, lineWidth: 3)
-            )
-        }
-        .padding()
-        
-        
-        Button(action: {
-            dismiss()
-        }) {
-            HStack{
-                Image(systemName: "arrow.left.circle.fill")
-                    .font(.headline)
-                NavigationLink(destination: GachaScreen()) {
-                    Text("Go to Gacha Screen")
-                }
-                .padding()
-            }
-            
-            Button(action: {
-                dismiss()
-            }) {
-                HStack{
-                    Image(systemName: "box.fill")
+        VStack(spacing: 12) {
+            NavigationLink(destination: GachaScreen()) {
+                HStack {
+                    Image(systemName: "gift.fill")
                         .font(.headline)
-                    NavigationLink(destination: CollectionScreen()) {
-                        Text("Go to Collection Screen")
-                    }
-                    .padding()
-                }
-                
-                Button(action: {
-                    dismiss()
-                }) {
-                    HStack{
-                        Image(systemName: "arrow.left.circle.fill")
-                            .font(.headline)
-                        NavigationLink(destination: GachaScreen()) {
-                            Text("Go to Starting Screen")
+                    Text("Go to Gacha Screen")
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
                         }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
                         .padding()
+                        .background(
+                    LinearGradient(gradient: Gradient(colors: [Color.purple, Color.blue]),startPoint: .leading, endPoint: .trailing)
+                        )
+                        .cornerRadius(15)
+                        .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
+                        )
+                        .shadow(color: .blue.opacity(0.4), radius: 5, x: 0, y: 3)
+                    }
+                    
+                    NavigationLink(destination: CollectionScreen()) {
+                        HStack {
+                            Image(systemName: "box.fill")
+                                .font(.headline)
+                            Text("Go to Collection Screen")
+                                .font(.system(size: 18, weight: .bold, design: .rounded))
+                        }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(
+                            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.pink]),
+                                         startPoint: .leading, endPoint: .trailing)
+                        )
+                        .cornerRadius(15)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
+                        )
+                        .shadow(color: .pink.opacity(0.4), radius: 5, x: 0, y: 3)
+                    }
+                    
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.left.circle.fill")
+                                .font(.headline)
+                            Text("Go to Starting Screen")
+                                .font(.system(size: 18, weight: .bold, design: .rounded))
+                        }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(
+                            LinearGradient(gradient: Gradient(colors: [Color.pink, Color.mint]),
+                                         startPoint: .leading, endPoint: .trailing)
+                        )
+                        .cornerRadius(15)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
+                        )
+                        .shadow(color: .red.opacity(0.4), radius: 5, x: 0, y: 3)
                     }
                 }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
+                
                 .navigationBarHidden(true)
             }
         }
-    }
-}
 
 
 #Preview {
