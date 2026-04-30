@@ -71,6 +71,7 @@ struct MainScreen: View {
                             .padding(.horizontal, 16)
                         }
                     }
+                    .padding()
                 }
                 VStack(spacing: 12) {
                     NavigationLink(destination: GachaScreen()) {
