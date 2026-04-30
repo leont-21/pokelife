@@ -1,7 +1,14 @@
 import SwiftUI
 
+// PLACEHOLDER TICKET AMT.
+@Observable
+class GameMode {
+    var tickets: Int = 150
+}
+
 struct MainScreen: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(GameModel.self) private var model
     @State private var tasks = [
         "Drink 8 glasses of water",
         "Take a 10-minute walk"
@@ -23,13 +30,13 @@ struct MainScreen: View {
                 VStack(spacing: 8) {
                     HStack(spacing: 8) {
                         Image(systemName: "sparkle")
-                            .foregroundColor(.pink)
+                            .foregroundColor(.white)
                             .font(.title)
                         Text("POKÉ TASKS")
                             .font(.system(size: 40, weight: .heavy, design: .rounded))
                             .foregroundColor(Color(red: 0.8, green: 0.3, blue: 0.5))
                         Image(systemName: "sparkle")
-                            .foregroundColor(.pink)
+                            .foregroundColor(.white)
                             .font(.title)
                     }
                     Text("✨Complete your daily adventures! ✨")
@@ -37,7 +44,22 @@ struct MainScreen: View {
                         .foregroundColor(Color(red: 0.7, green: 0.4, blue: 0.6))
                 }
                 .padding(.top, 30)
-                .padding(.bottom, 20)
+                .padding(.bottom, 10)
+                // work on alignment
+                HStack() {
+                    Text("\(model.tickets)")
+                        .font(.system(size: 20, weight: .bold))
+                    Image("ticket")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+                .frame(width: 100, height: 32)
+                .padding([.top, .bottom], 5)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.gray.opacity(0.6))
+                        .shadow(color: Color.pink.opacity(0.2), radius: 5, x: 0, y: 2)
+                )
                 ScrollView {
                     VStack(spacing: 12) {
                         ForEach(tasks, id: \.self) { task in
@@ -160,5 +182,8 @@ struct MainScreen: View {
 }
 
 #Preview {
-    MainScreen()
+    NavigationStack {
+        MainScreen()
+            .environment(GameModel())
+    }
 }

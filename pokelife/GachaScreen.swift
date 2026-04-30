@@ -28,20 +28,25 @@ struct GachaScreen: View {
                 }
                 .padding(.top, 30)
                 .padding(.bottom, 20)
-                
                 Spacer()
-                VStack(spacing: 20) {
-                    Image(systemName: "sparkles")
-                        .font(.system(size: 80))
-                        .foregroundColor(.purple)
+                ZStack() {
+                    Image("gachapon")
+                    Image("gachapon_knob")
+                        .offset(x: 50, y: 100)
+                }
+                Button(action: {
+                    
+                }) {
+                    Text("Spin for [ 1 ] ticket")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.white)
                         .padding()
-                        .background(
-                            Circle()
-                                .fill(Color.white.opacity(0.7))
-                                .frame(width: 150, height: 150)
+                        .background(Color(red: 0.8, green: 0.3, blue: 0.5))
+                        .cornerRadius(25)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
                         )
-                    Text("Gacha Machine Coming Soon!")
-                    Text("Collect all the cute Pokémon!")
                 }
                 Spacer()
                 //same code as in mainscreen with some differences

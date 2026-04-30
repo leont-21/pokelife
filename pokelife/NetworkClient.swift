@@ -1,9 +1,3 @@
-//
-//  NetworkClient.swift
-//  pokelife
-//
-//  Created by Student on 4/28/26.
-//
 
 import SwiftUI
 
