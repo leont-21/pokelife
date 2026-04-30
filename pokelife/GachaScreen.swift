@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GachaScreen: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(GameModel.self) private var model
     
     var body: some View {
         ZStack {
@@ -11,7 +12,7 @@ struct GachaScreen: View {
             ]), startPoint: .top, endPoint: .bottom)
             .ignoresSafeArea()
             
-            VStack{
+            VStack {
                 VStack(spacing: 8) {
                     HStack(spacing: 8) {
                         Image(systemName: "gift.fill")
@@ -26,14 +27,30 @@ struct GachaScreen: View {
                     }
                     Text("✨ Spin to get new Pokémon! ✨")
                 }
-                .padding(.top, 30)
-                .padding(.bottom, 20)
-                Spacer()
+                .padding(.top, 50)
+                .padding(.bottom, 10)
+                
+                HStack() {
+                    Text("\(model.tickets)")
+                        .font(.system(size: 28, weight: .bold))
+                    Image("ticket")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+                .frame(width: 100, height: 40)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.6))
+                        .shadow(color: Color.pink.opacity(0.2), radius: 5, x: 0, y: 2))
+                .padding(.trailing, 275)
+                
                 ZStack() {
                     Image("gachapon")
                     Image("gachapon_knob")
                         .offset(x: 50, y: 100)
                 }
+                
+                // make this initiate a "gacha game"
                 Button(action: {
                     
                 }) {
@@ -48,7 +65,6 @@ struct GachaScreen: View {
                                 .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
                         )
                 }
-                Spacer()
                 //same code as in mainscreen with some differences
                 VStack(spacing: 12) {
                     NavigationLink(destination: MainScreen()) {
@@ -138,5 +154,8 @@ struct GachaScreen: View {
 }
 
 #Preview {
-    GachaScreen()
+    NavigationStack {
+        GachaScreen()
+            .environment(GameModel())
+    }
 }

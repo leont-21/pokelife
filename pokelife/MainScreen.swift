@@ -1,11 +1,5 @@
 import SwiftUI
 
-// PLACEHOLDER TICKET AMT.
-@Observable
-class GameMode {
-    var tickets: Int = 150
-}
-
 struct MainScreen: View {
     @Environment(\.dismiss) var dismiss
     @Environment(GameModel.self) private var model
@@ -45,6 +39,7 @@ struct MainScreen: View {
                 }
                 .padding(.top, 30)
                 .padding(.bottom, 10)
+                
                 // work on alignment
                 HStack() {
                     Text("\(model.tickets)")
@@ -53,13 +48,13 @@ struct MainScreen: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
-                .frame(width: 100, height: 32)
-                .padding([.top, .bottom], 5)
+                .frame(width: 90, height: 36)
                 .background(
-                    RoundedRectangle(cornerRadius: 20)
+                    RoundedRectangle(cornerRadius: 10)
                         .fill(Color.gray.opacity(0.6))
-                        .shadow(color: Color.pink.opacity(0.2), radius: 5, x: 0, y: 2)
-                )
+                        .shadow(color: Color.pink.opacity(0.2), radius: 5, x: 0, y: 2))
+                .padding(.trailing, 250)
+                
                 ScrollView {
                     VStack(spacing: 12) {
                         ForEach(tasks, id: \.self) { task in
