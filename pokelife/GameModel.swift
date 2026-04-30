@@ -5,10 +5,13 @@ import SwiftUI
 class GameModel {
     private(set) var tickets = 0
     private(set) var menu: SelectedMenu = SelectedMenu.start
-    private(set) var pokemonCollection : [Pokemon] = []
+    //dictionary of all pokemon ids and whether theyve been collected or not
+    private(set) var collectedPokemon : [Int : Bool] = [:]
     
-    //debug function to set pokemonCollection
-    func setCollection(list : [Pokemon]) {
-        pokemonCollection = list
+    init () {
+        tickets = 0
+        menu = SelectedMenu.start
+        collectedPokemon = [:]
     }
+    
 }
