@@ -2,9 +2,17 @@ import SwiftUI
 
 struct MainScreen: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(GameModel.self) private var model
     @State private var tasks = [
-        "Drink 8 glasses of water",
-        "Take a 10-minute walk"
+        "Drink a glass of water",
+        "Take a 10-minute walk",
+        "Stretch for a minute",
+        "Do a breathing exercise for 3 minutes",
+        "Complement someone",
+        "Clean something",
+        "Write about your day",
+        "Write how you're feeling now",
+        "Spend 30 minutes being productive, undistracted"
     ]
     
     var body: some View {
@@ -23,13 +31,13 @@ struct MainScreen: View {
                 VStack(spacing: 8) {
                     HStack(spacing: 8) {
                         Image(systemName: "sparkle")
-                            .foregroundColor(.pink)
+                            .foregroundColor(.white)
                             .font(.title)
                         Text("POKÉ TASKS")
                             .font(.system(size: 40, weight: .heavy, design: .rounded))
                             .foregroundColor(Color(red: 0.8, green: 0.3, blue: 0.5))
                         Image(systemName: "sparkle")
-                            .foregroundColor(.pink)
+                            .foregroundColor(.white)
                             .font(.title)
                     }
                     Text("✨Complete your daily adventures! ✨")
@@ -37,7 +45,23 @@ struct MainScreen: View {
                         .foregroundColor(Color(red: 0.7, green: 0.4, blue: 0.6))
                 }
                 .padding(.top, 30)
-                .padding(.bottom, 20)
+                .padding(.bottom, 10)
+                
+                // work on alignment
+                HStack() {
+                    Text("\(model.tickets)")
+                        .font(.system(size: 20, weight: .bold))
+                    Image("ticket")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+                .frame(width: 90, height: 36)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.6))
+                        .shadow(color: Color.pink.opacity(0.2), radius: 5, x: 0, y: 2))
+                .padding(.trailing, 250)
+                
                 ScrollView {
                     VStack(spacing: 12) {
                         ForEach(tasks, id: \.self) { task in
@@ -101,7 +125,7 @@ struct MainScreen: View {
                     
                     NavigationLink(destination: CollectionScreen()) {
                         HStack {
-                            Image(systemName: "box.fill")
+                            Image(systemName: "books.vertical.fill")
                                 .font(.headline)
                             Text("Go to Collection Screen")
                                 .font(.system(size: 18, weight: .semibold, design: .rounded))
@@ -161,5 +185,8 @@ struct MainScreen: View {
 }
 
 #Preview {
-    MainScreen()
+    NavigationStack {
+        MainScreen()
+            .environment(GameModel())
+    }
 }

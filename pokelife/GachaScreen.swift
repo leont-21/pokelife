@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GachaScreen: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(GameModel.self) private var model
     
     var body: some View {
         ZStack {
@@ -11,7 +12,7 @@ struct GachaScreen: View {
             ]), startPoint: .top, endPoint: .bottom)
             .ignoresSafeArea()
             
-            VStack{
+            VStack {
                 VStack(spacing: 8) {
                     HStack(spacing: 8) {
                         Image(systemName: "gift.fill")
@@ -26,24 +27,50 @@ struct GachaScreen: View {
                     }
                     Text("✨ Spin to get new Pokémon! ✨")
                 }
-                .padding(.top, 30)
-                .padding(.bottom, 20)
+                .padding(.top, 50)
+                .padding(.bottom, 10)
                 
-                Spacer()
-                VStack(spacing: 20) {
-                    Image(systemName: "sparkles")
-                        .font(.system(size: 80))
-                        .foregroundColor(.purple)
-                        .padding()
-                        .background(
-                            Circle()
-                                .fill(Color.white.opacity(0.7))
-                                .frame(width: 150, height: 150)
-                        )
-                    Text("Gacha Machine Coming Soon!")
-                    Text("Collect all the cute Pokémon!")
+                HStack() {
+                    Text("\(model.tickets)")
+                        .font(.system(size: 28, weight: .bold))
+                    Image("ticket")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                 }
-                Spacer()
+                .frame(width: 100, height: 40)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.6))
+                        .shadow(color: Color.pink.opacity(0.2), radius: 5, x: 0, y: 2))
+                .padding(.trailing, 275)
+                
+                ZStack() {
+                    Image("gachapon")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 250, maxHeight: 250)
+                    Image("gachapon_knob")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 50, maxHeight: 50)
+                        .offset(x: 27, y: 65)
+                }
+                
+                // make this initiate a "gacha game"
+                Button(action: {
+                    
+                }) {
+                    Text("Spin for [ 1 ] ticket")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color(red: 0.8, green: 0.3, blue: 0.5))
+                        .cornerRadius(25)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
+                        )
+                }
                 //same code as in mainscreen with some differences
                 VStack(spacing: 12) {
                     NavigationLink(destination: MainScreen()) {
@@ -133,5 +160,8 @@ struct GachaScreen: View {
 }
 
 #Preview {
-    GachaScreen()
+    NavigationStack {
+        GachaScreen()
+            .environment(GameModel())
+    }
 }
