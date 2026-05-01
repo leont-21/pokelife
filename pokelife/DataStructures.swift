@@ -39,11 +39,11 @@ struct Pokemon : Identifiable, Decodable {
     }
     
     //debug: Directly create a pokemon without use of a json object
-    init (id : Int, sprite_path : Sprites, name : String, shiny : Bool) {
+    init (id : Int, sprites : Sprites, name : String, shiny : Bool) {
         self.id = id
         self.name = name
         self.shiny = shiny
-        self.sprites = sprite_path
+        self.sprites = sprites
     }
 }
 
@@ -60,6 +60,26 @@ struct Sprites: Decodable {
         case backShiny = "back_shiny"
     }
 }
+
+//Class for getting the results list of all pokemon
+struct AllURLlist : Decodable {
+    //list of all pokemon as API urls
+    let urlList: [PokeEndpoint]
+    //converted api URLS to strings
+    var urlStringList: [String] {
+        if urlList.isEmpty {
+            return []
+        } else {
+            return urlList.map { $0.url }
+        }
+    }
+}
+
+struct PokeEndpoint : Decodable {
+    let url: String
+}
+
+//A single result entry
 
 struct Task {
     let points : Int //Amount of points gained for one completion of task
