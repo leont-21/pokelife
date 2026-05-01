@@ -4,8 +4,15 @@ struct MainScreen: View {
     @Environment(\.dismiss) var dismiss
     @Environment(GameModel.self) private var model
     @State private var tasks = [
-        "Drink 8 glasses of water",
-        "Take a 10-minute walk"
+        "Drink a glass of water",
+        "Take a 10-minute walk",
+        "Stretch for a minute",
+        "Do a breathing exercise for 3 minutes",
+        "Complement someone",
+        "Clean something",
+        "Write about your day",
+        "Write how you're feeling now",
+        "Spend 30 minutes being productive, undistracted"
     ]
     
     var body: some View {
@@ -118,7 +125,7 @@ struct MainScreen: View {
                     
                     NavigationLink(destination: CollectionScreen()) {
                         HStack {
-                            Image(systemName: "box.fill")
+                            Image(systemName: "books.vertical.fill")
                                 .font(.headline)
                             Text("Go to Collection Screen")
                                 .font(.system(size: 18, weight: .semibold, design: .rounded))
