@@ -46,8 +46,14 @@ struct GachaScreen: View {
                 
                 ZStack() {
                     Image("gachapon")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 250, maxHeight: 250)
                     Image("gachapon_knob")
-                        .offset(x: 50, y: 100)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: 50, maxHeight: 50)
+                        .offset(x: 27, y: 65)
                 }
                 
                 // make this initiate a "gacha game"
