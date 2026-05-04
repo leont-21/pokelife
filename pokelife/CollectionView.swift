@@ -2,8 +2,8 @@
 import SwiftUI
 
 struct CollectionScreen: View {
+    @Binding var selectedTab: Int
     @Environment(GameModel.self) private var model: GameModel
-    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
@@ -47,94 +47,13 @@ struct CollectionScreen: View {
                     Text("Collect all the cute Pokémon!")
                 }
                 Spacer()
-                VStack(spacing: 12) {
-                    NavigationLink(destination: MainScreen()) {
-                        HStack {
-                            Image(systemName: "gift.fill")
-                                .font(.headline)
-                            Text("Go to Tasks Screen")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.purple, Color.blue]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
-                        )
-                        .shadow(color: .blue.opacity(0.4), radius: 5, x: 0, y: 3)
-                    }
-                    
-                    NavigationLink(destination: GachaScreen()) {
-                        HStack {
-                            Image(systemName: "box.fill")
-                                .font(.headline)
-                            Text("Go to Gacha Screen")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.blue, Color.pink]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
-                        )
-                        .shadow(color: .pink.opacity(0.3), radius: 5, x: 0, y: 3)
-                    }
-                    
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.left.circle.fill")
-                                .font(.headline)
-                            Text("Go Back")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.pink, Color.mint]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
-                        )
-                        .shadow(color: .red.opacity(0.4), radius: 5, x: 0, y: 3)
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 30)
             }
+            .navigationBarHidden(true)
         }
-        .navigationBarHidden(true)
     }
 }
 
 #Preview {
-    CollectionScreen()
+    CollectionScreen(selectedTab: .constant(3))
         .environment(GameModel())
 }

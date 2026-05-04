@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MainScreen: View {
-    @Environment(\.dismiss) var dismiss
+    @Binding var selectedTab: Int
     @Environment(GameModel.self) private var model
     @State private var tasks = [
         "Drink a glass of water",
@@ -97,96 +97,15 @@ struct MainScreen: View {
                     }
                     .padding()
                 }
-                VStack(spacing: 12) {
-                    NavigationLink(destination: GachaScreen()) {
-                        HStack {
-                            Image(systemName: "gift.fill")
-                                .font(.headline)
-                            Text("Go to Gacha Screen")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.purple, Color.blue]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
-                        )
-                        .shadow(color: .blue.opacity(0.4), radius: 5, x: 0, y: 3)
-                    }
-                    
-                    NavigationLink(destination: CollectionScreen()) {
-                        HStack {
-                            Image(systemName: "books.vertical.fill")
-                                .font(.headline)
-                            Text("Go to Collection Screen")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.blue, Color.pink]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
-                        )
-                        .shadow(color: .pink.opacity(0.3), radius: 5, x: 0, y: 3)
-                    }
-                    
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        HStack {
-                            Image(systemName: "arrow.left.circle.fill")
-                                .font(.headline)
-                            Text("Go Back")
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.pink, Color.mint]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(25)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
-                        )
-                        .shadow(color: .red.opacity(0.4), radius: 5, x: 0, y: 3)
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 30)
             }
+            .navigationBarHidden(true)
         }
-        .navigationBarHidden(true)
     }
 }
 
 #Preview {
     NavigationStack {
-        MainScreen()
+        MainScreen(selectedTab: .constant(1))
             .environment(GameModel())
     }
 }

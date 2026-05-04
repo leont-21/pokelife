@@ -1,27 +1,39 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var path: [SelectedMenu] = []
+    @State private var selectedTab = 0
     @Environment(GameModel.self) private var model: GameModel
     
     var body: some View {
-        NavigationStack(path: $path) {
-            StartingScreen(path: $path)
-                .navigationDestination(for: SelectedMenu.self) { menu in
-                    switch menu {
-                    case .start:
-                        StartingScreen(path: $path)
-                    case .main:
-                        MainScreen()
-                    case .gacha:
-                        GachaScreen()
-                    case .collection:
-                        CollectionScreen()
+            TabView(selection: $selectedTab){
+                StartingScreen(selectedTab: $selectedTab)
+                    .tabItem {
+                        Label("Start", systemImage: "house.fill")
                     }
-                }
+                    .tag(0)
+                
+                MainScreen(selectedTab: $selectedTab)
+                    .tabItem {
+                        Label("Tasks", systemImage: "checklist")
+                    }
+                    .tag(1)
+                
+                GachaScreen(selectedTab: $selectedTab)
+                    .tabItem {
+                        Label("Gacha", systemImage: "gift.fill")
+                    }
+                    .tag(2)
+                
+                CollectionScreen(selectedTab: $selectedTab)
+                    .tabItem {
+                        Label("Collection", systemImage: "archivebox.fill")
+                    }
+                    .tag(3)
+            }
         }
     }
-}
+
+
 #Preview {
       ContentView()
           .environment(GameModel())
