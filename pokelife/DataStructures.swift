@@ -2,12 +2,22 @@
 import Foundation
 import SwiftUI
 
-struct Pokemon : Identifiable, Decodable {
+struct Pokemon : Identifiable, Decodable, Hashable {
     let id : Int
     let sprites : Sprites
     let name : String
     let shiny : Bool
     
+    
+    //hashable
+    static func == (lPoke: Pokemon, rPoke: Pokemon) -> Bool {
+        return lPoke.id == rPoke.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
+    }
     //enums for decoding
     
     enum CodingKeys : String, CodingKey {
