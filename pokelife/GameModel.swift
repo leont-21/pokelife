@@ -16,14 +16,12 @@ class GameModel {
     }
     
     func gachaPlay() {
-        if tickets == 0 {
-                tickets = tickets
-            }
-        else{
-            tickets = tickets - 1
-            
-        }
-            
+        guard tickets > 0 else { return }
+        tickets -= 1
+        let randomPokemonID = Int.random(in: 1...151)
+        collectedPokemon[randomPokemonID] = true
+        
+        print("You got Pokémon #\(randomPokemonID)!")
             //GachaGame()
             // make this add a random pokemon to the player's collectedPokemon
             // display this new pokemon on screen
