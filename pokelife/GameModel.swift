@@ -10,17 +10,22 @@ class GameModel {
     private(set) var collectedPokemon : [Int : Bool] = [:]
     
     init () {
-        tickets = 0
+        tickets = 5
         menu = SelectedMenu.start
         collectedPokemon = [:]
     }
     
     func gachaPlay() {
-        if tickets < 1 {
+        if tickets == 0 {
+                tickets = tickets
+            }
+        else{
             tickets = tickets - 1
+            
+        }
+            
             //GachaGame()
             // make this add a random pokemon to the player's collectedPokemon
             // display this new pokemon on screen
         }
     }
-}
