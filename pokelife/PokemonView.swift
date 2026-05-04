@@ -37,10 +37,11 @@ struct PokemonView: View {
                     .padding([.top, .trailing], 5)
             }
         }
+        
     }
 
 
 #Preview {
-    PokemonView(pokemon: Pokemon(id: 681, sprites: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false), collected: true)
+    PokemonView(pokemon: Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false), collected: true)
         .environment(NetworkClient())
 }

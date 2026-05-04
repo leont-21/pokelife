@@ -1,9 +1,10 @@
-
 import SwiftUI
 
 struct CollectionScreen: View {
     @Binding var selectedTab: Int
     @Environment(GameModel.self) private var model: GameModel
+    @Environment(NetworkClient.self) private var client
+
     
     var body: some View {
         ZStack {
@@ -33,20 +34,30 @@ struct CollectionScreen: View {
                 
                 Spacer()
                 // Pokemon list made with a lazy grid
-                VStack(spacing: 20) {
-                    Image(systemName: "sparkles")
-                        .font(.system(size: 80))
-                        .foregroundColor(.purple)
-                        .padding()
-                        .background(
-                            Circle()
-                                .fill(Color.white.opacity(0.7))
-                                .frame(width: 150, height: 150)
-                        )
-                    Text("Collection Coming Soon!")
-                    Text("Collect all the cute Pokémon!")
+                ScrollView{
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+    //                    Image(systemName: "sparkles")
+    //                        .font(.system(size: 80))
+    //                        .foregroundColor(.purple)
+    //                        .padding()
+    //                        .background(
+    //                            Circle()
+    //                                .fill(Color.white.opacity(0.7))
+    //                                .frame(width: 150, height: 150)
+    //                        )
+    //                    Text("Collection Coming Soon!")
+    //                    Text("Collect all the cute Pokémon!")
+                        //loop through all pokemon list to get views for all pokemon
+                        ForEach(client.allPokemon, id: \.self) { pokemon in
+                            PokemonView(pokemon: pokemon ?? Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false), collected: false)
+                        }
+                    }
                 }
                 Spacer()
+            }
+            //task to get all pokemon
+            .task {
+                await client.getAllPokemon()
             }
             .navigationBarHidden(true)
         }
@@ -56,4 +67,5 @@ struct CollectionScreen: View {
 #Preview {
     CollectionScreen(selectedTab: .constant(3))
         .environment(GameModel())
+        .environment(NetworkClient())
 }

@@ -2,12 +2,22 @@
 import Foundation
 import SwiftUI
 
-struct Pokemon : Identifiable, Decodable {
+struct Pokemon : Identifiable, Decodable, Hashable {
     let id : Int
     let sprites : Sprites
     let name : String
     let shiny : Bool
     
+    
+    //hashable
+    static func == (lPoke: Pokemon, rPoke: Pokemon) -> Bool {
+        return lPoke.id == rPoke.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(name)
+    }
     //enums for decoding
     
     enum CodingKeys : String, CodingKey {
@@ -39,11 +49,11 @@ struct Pokemon : Identifiable, Decodable {
     }
     
     //debug: Directly create a pokemon without use of a json object
-    init (id : Int, sprites : Sprites, name : String, shiny : Bool) {
+    init (id : Int, sprite_path : Sprites, name : String, shiny : Bool) {
         self.id = id
         self.name = name
         self.shiny = shiny
-        self.sprites = sprites
+        self.sprites = sprite_path
     }
 }
 
@@ -64,13 +74,13 @@ struct Sprites: Decodable {
 //Class for getting the results list of all pokemon
 struct AllURLlist : Decodable {
     //list of all pokemon as API urls
-    let urlList: [PokeEndpoint]
+    let results: [PokeEndpoint]
     //converted api URLS to strings
     var urlStringList: [String] {
-        if urlList.isEmpty {
+        if results.isEmpty {
             return []
         } else {
-            return urlList.map { $0.url }
+            return results.map { $0.url }
         }
     }
 }
