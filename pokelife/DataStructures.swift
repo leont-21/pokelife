@@ -39,11 +39,11 @@ struct Pokemon : Identifiable, Decodable {
     }
     
     //debug: Directly create a pokemon without use of a json object
-    init (id : Int, sprites : Sprites, name : String, shiny : Bool) {
+    init (id : Int, sprite_path : Sprites, name : String, shiny : Bool) {
         self.id = id
         self.name = name
         self.shiny = shiny
-        self.sprites = sprites
+        self.sprites = sprite_path
     }
 }
 
