@@ -37,6 +37,7 @@ struct PokemonView: View {
                     .padding([.top, .trailing], 5)
             }
         }
+        
     }
 
 

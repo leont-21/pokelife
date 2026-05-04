@@ -64,13 +64,13 @@ struct Sprites: Decodable {
 //Class for getting the results list of all pokemon
 struct AllURLlist : Decodable {
     //list of all pokemon as API urls
-    let urlList: [PokeEndpoint]
+    let results: [PokeEndpoint]
     //converted api URLS to strings
     var urlStringList: [String] {
-        if urlList.isEmpty {
+        if results.isEmpty {
             return []
         } else {
-            return urlList.map { $0.url }
+            return results.map { $0.url }
         }
     }
 }
