@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct StartingScreen: View {
-    @Binding var path: [SelectedMenu]
+    @Binding var selectedTab: Int
     
     var body: some View {
         ZStack{
@@ -24,7 +24,7 @@ struct StartingScreen: View {
                     .padding(.horizontal)
                     .padding(.top, 16)
                 Spacer()
-                Button(action: { path.append(.main) }) {
+                Button(action: { selectedTab = 1 }) {
                     ZStack {
                         Circle()
                             .fill(Color.white)
@@ -41,7 +41,7 @@ struct StartingScreen: View {
                 }
                 .buttonStyle(.plain)
                 Spacer()
-                    .frame(height: 310)
+                    .frame(height: 270)
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -50,5 +50,5 @@ struct StartingScreen: View {
 }
 
 #Preview {
-    StartingScreen(path: .constant([]))
+    StartingScreen(selectedTab: .constant(1))
 }

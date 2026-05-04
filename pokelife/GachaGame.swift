@@ -2,7 +2,6 @@
 import SwiftUI
 
 struct GachaGame: View {
-    @Environment(\.dismiss) var dismiss
     @Environment(GameModel.self) private var model
     
     @State private var angle: Angle = .zero

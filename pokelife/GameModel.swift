@@ -18,7 +18,7 @@ class GameModel {
     func gachaPlay() {
         if tickets < 1 {
             tickets = tickets - 1
-            GachaGame()
+            //GachaGame()
             // make this add a random pokemon to the player's collectedPokemon
             // display this new pokemon on screen
         }
