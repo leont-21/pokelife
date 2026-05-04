@@ -53,7 +53,7 @@ struct GachaScreen: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(maxWidth: 100, maxHeight: 100)
-                        .offset(x: 60, y: 130)
+                        .offset(x: 60, y: 125)
                 }
                 
                 // make this initiate a "gacha game", activating GachaGame
