@@ -3,7 +3,7 @@ import SwiftUI
 struct CollectionScreen: View {
     @Binding var selectedTab: Int
     @Environment(GameModel.self) private var model: GameModel
-    @Environment(NetworkClient.self) private var client
+    @Environment(NetworkClient.self) private var client: NetworkClient
 
     
     var body: some View {
@@ -49,7 +49,7 @@ struct CollectionScreen: View {
     //                    Text("Collect all the cute Pokémon!")
                         //loop through all pokemon list to get views for all pokemon
                         ForEach(client.allPokemon, id: \.self) { pokemon in
-                            PokemonView(pokemon: pokemon ?? Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false), collected: false)
+                            PokemonView(pokemon: pokemon ?? Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false), collected: model.collectedPokemon[pokemon?.id ?? 0] ?? false)
                         }
                     }
                 }
@@ -57,7 +57,14 @@ struct CollectionScreen: View {
             }
             //task to get all pokemon
             .task {
-                await client.getAllPokemon()
+                for id in 1...1025{
+                    if(model.collectedPokemon[id] == nil){
+                        //populate all_pokemon_array in client
+                        await client.populateOneAllPokemon(id: id)
+                        //add pokemon id to collected dictionary in model
+                        model.addIDtoCollectedPokemon(id: id)
+                    }
+                }
             }
             .navigationBarHidden(true)
         }

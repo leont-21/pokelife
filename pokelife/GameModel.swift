@@ -26,4 +26,15 @@ class GameModel {
             // make this add a random pokemon to the player's collectedPokemon
             // display this new pokemon on screen
         }
+    
+    //adds a pokemon id to the collected pokemon list
+    func addIDtoCollectedPokemon(id : Int) {
+        collectedPokemon[id] = false
     }
+    
+    //sets an id in collected pokemon list to true
+    func collectPokemon(id: Int) {
+        collectedPokemon[id] = true
+    }
+}
+    

@@ -48,8 +48,9 @@ class NetworkClient {
     func getAllPokemon() async {
         //DONT run if all pokemon list isn't empty
         if (allPokemon.isEmpty){
-            //get list of all pokemon
-            let urlString: String = "https://pokeapi.co/api/v2/pokemon?limit=100000"
+            // get list of all pokemon
+            // Change to limit 10000 later
+            let urlString: String = "https://pokeapi.co/api/v2/pokemon?limit=100"
             
             let url: URL? = URL(string: urlString)
             guard let urlUnwrapped = url else {
@@ -62,7 +63,9 @@ class NetworkClient {
                 //loop through results string endpoint,
                 var pokemonArray: [Pokemon?] = []
                 for pokeURL in results.urlStringList {
+                    print("append1")
                     pokemonArray.append(await getPokemonData(urlStr: pokeURL))
+                    print("append2")
                 }
                 allPokemon = pokemonArray
             } catch let error {
@@ -70,5 +73,11 @@ class NetworkClient {
                 return
             }
         }
+    }
+    
+    //populate allPokemon array with 1 pokemon (id)
+    func populateOneAllPokemon(id : Int) async {
+        let pokemon = await getPokemonData(id: id)
+        allPokemon.append(pokemon)
     }
 }
