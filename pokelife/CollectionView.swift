@@ -6,7 +6,9 @@ struct CollectionScreen: View {
     @Environment(NetworkClient.self) private var client: NetworkClient
 
     @State private var searchText = ""
-    @State private var searchIsActive = false
+    @FocusState private var searchIsActive : Bool
+    
+    let defaultPokemon = Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false)
     
     var body: some View {
         //navigation stack to make it searchable
@@ -31,10 +33,16 @@ struct CollectionScreen: View {
                                 .foregroundColor(.pink)
                                 .font(.title)
                         }
-                        Text("✨ Here are your Pokemon! ✨")
                     }
                     .padding(.top, 30)
-                    .padding(.bottom, 20)
+                    
+                    //search bar
+                    TextField("Search for a pokemon", text: $searchText)
+                    .focused($searchIsActive)
+                    .textFieldStyle(.roundedBorder)
+                    .padding([.bottom, .leading, .trailing], 6)
+        
+
                     
                     Spacer()
                     // Pokemon list made with a lazy grid
@@ -54,9 +62,19 @@ struct CollectionScreen: View {
                             
                             // IF SEARCH IS NOT ACTIVE
                             //loop through all pokemon list to get views for all pokemon
-                            ForEach(client.allPokemon, id: \.self) { pokemon in
-                                PokemonView(pokemon: pokemon ?? Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false), collected: model.collectedPokemon[pokemon?.id ?? 0] ?? false)
+                            if (searchText.isEmpty) {
+                                ForEach(client.allPokemon, id: \.self) { pokemon in
+                                    PokemonView(pokemon: pokemon ?? defaultPokemon, collected: model.collectedPokemon[pokemon?.id ?? 0] ?? false)
+                                }
+                            } else {
+                                //search active: only show pokemon that have search text in their name
+                                let searchedArray = client.allPokemon.filter{ $0?.name.contains((searchText).lowercased()) ?? false}
+                                ForEach(searchedArray, id: \.self) { pokemon in
+                                    PokemonView(pokemon: pokemon ?? defaultPokemon, collected: model.collectedPokemon[pokemon?.id ?? 0] ?? false)
+                                    
+                                }
                             }
+                            
                         }
                     }
                     Spacer()
@@ -75,7 +93,6 @@ struct CollectionScreen: View {
                 .navigationBarHidden(true)
             }
         }
-        .searchable(text: $searchText, isPresented: $searchIsActive)
     }
 }
 
