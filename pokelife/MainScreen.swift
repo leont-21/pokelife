@@ -14,6 +14,19 @@ struct MainScreen: View {
         "Write how you're feeling now",
         "Spend 30 minutes being productive, undistracted"
     ]
+    @State private var currTasks: [String] = []
+    private let maxTasks = 3
+    
+    func generateCurrTasks() {
+        while (currTasks.count < maxTasks) {
+            var randTask = tasks[Int.random(in: 0..<tasks.count)]
+            while currTasks.contains(randTask) {
+                randTask = tasks[Int.random(in: 0..<tasks.count)]
+            }
+            currTasks.append(randTask)
+            print(currTasks)
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -64,7 +77,7 @@ struct MainScreen: View {
                 
                 ScrollView {
                     VStack(spacing: 12) {
-                        ForEach(tasks, id: \.self) { task in
+                        ForEach(currTasks, id: \.self) { task in
                             HStack {
                                 Image(systemName: "star.fill")
                                     .foregroundColor(.yellow)
@@ -81,7 +94,14 @@ struct MainScreen: View {
                                         Text("✓")
                                             .foregroundColor(.green)
                                             .font(.system(size: 14, weight: .bold))
-                                        //remember to add action
+                                            .onTapGesture {
+                                                //Add Tickets
+                                                model.addTickets(amt: 1)
+                                                //Remove Task
+                                                currTasks.remove(at: currTasks.firstIndex(of: task) ?? -1)
+                                                //Generate New Task into currTasks
+                                                generateCurrTasks()
+                                            }
                                     }
                                 }
                             }
@@ -92,10 +112,12 @@ struct MainScreen: View {
                                     .fill(Color.white.opacity(0.7))
                                     .shadow(color: Color.pink.opacity(0.2), radius: 5, x: 0, y: 2)
                             )
-                            .padding(.horizontal, 16)
                         }
                     }
                     .padding()
+                    .onAppear {
+                        generateCurrTasks()
+                    }
                 }
             }
             .navigationBarHidden(true)

@@ -15,6 +15,10 @@ class GameModel {
         collectedPokemon = [:]
     }
     
+    func addTickets(amt: Int) {
+        tickets += amt
+    }
+    
     func gachaPlay() {
         guard tickets > 0 else { return }
         tickets -= 1
