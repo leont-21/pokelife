@@ -78,18 +78,7 @@ struct CollectionScreen: View {
                         }
                     }
                     Spacer()
-                }
-                //task to get all pokemon
-                .task {
-                    for id in 1...1025{
-                        if(model.collectedPokemon[id] == nil){
-                            //populate all_pokemon_array in client
-                            await client.populateOneAllPokemon(id: id)
-                            //add pokemon id to collected dictionary in model
-                            model.addIDtoCollectedPokemon(id: id)
-                        }
-                    }
-                }
+                }            
                 .navigationBarHidden(true)
             }
         }
