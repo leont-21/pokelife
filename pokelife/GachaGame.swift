@@ -3,7 +3,11 @@ import SwiftUI
 
 struct GachaGame: View {
     @Environment(GameModel.self) private var model
+    @State private var gachaOn = false
     @State private var rotation: Angle = .zero
+    
+    @State private var arrowVis = true
+    @State private var totalRotation: Int = 0
     
     var body: some View {
         ZStack {
@@ -15,14 +19,29 @@ struct GachaGame: View {
                 .ignoresSafeArea()
             ZStack() {
                 Image("gachapon")
-                // MAKE IT SO knob is rotatable about its center after gacha initiation
+                if !gachaOn {
+                    Image("arrow")
+                        .opacity(arrowVis ? 1 : 0.7)
+                        .animation (
+                            .easeInOut(duration: 0.4)
+                            .repeatForever(autoreverses: true),
+                            value: arrowVis
+                        )
+                        .onAppear {
+                            arrowVis = false
+                        }
+                        .scaleEffect(0.20)
+                        .offset(x: 7, y: 57)
+                        .rotationEffect(.degrees(-26))
+                }
                 VStack {
                     Image("gachapon_knob")
                         .rotationEffect(rotation, anchor: .center)
                         .gesture(
                             DragGesture()
                                 .onChanged { value in
-                                    self.rotation = rotateKnob(position: value)
+                                    gachaOn = true
+                                        self.rotation = rotateKnob(position: value)
                                 }
                         )
                 }
@@ -36,7 +55,14 @@ struct GachaGame: View {
     func rotateKnob(position: DragGesture.Value) -> Angle {
         let vector = CGVector(dx: position.location.x - 50, dy: position.location.y - 110)
         let radians = atan2(vector.dy, vector.dx)
-        return Angle(radians: Double(radians))
+        let angle = Angle(radians: Double(radians))
+        
+        // MAKE this activate something!!
+        if totalRotation <= 1080 {
+            totalRotation += Int(angle.degrees)
+        }
+        
+        return angle
     }
 }
 
