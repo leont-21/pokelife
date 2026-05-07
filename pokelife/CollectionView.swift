@@ -37,10 +37,22 @@ struct CollectionScreen: View {
                     .padding(.top, 30)
                     
                     //search bar
-                    TextField("Search for a pokemon", text: $searchText)
-                    .focused($searchIsActive)
-                    .textFieldStyle(.roundedBorder)
+                    ZStack(alignment: .trailing){
+                        //search bar text field
+                        TextField("Search for a pokemon", text: $searchText)
+                        .focused($searchIsActive)
+                        .textFieldStyle(.roundedBorder)
+                        //delete button
+                        Image(systemName: "delete.left.fill")
+                            .padding(.trailing)
+                            .foregroundStyle(.pink)
+                            .onTapGesture {
+                                searchText = ""
+                            }
+                            
+                    }
                     .padding([.bottom, .leading, .trailing], 6)
+
         
 
                     
