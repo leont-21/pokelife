@@ -75,16 +75,15 @@ struct CollectionScreen: View {
                             // IF SEARCH IS NOT ACTIVE
                             //loop through all pokemon list to get views for all pokemon
                             if (searchText.isEmpty) {
-                                ForEach(client.allPokemonArray, id: \.self) { pokeKey in
-                                    let pokemon : Pokemon =  (pokeKey) ?? defaultPokemon
-                                    let _ = print("\(pokemon.name): \(pokemon.sprites.frontDefault ?? "N/A")")
-                                    PokemonView(pokemon: pokemon, collected: true)
+                                ForEach(client.allPokemonArray, id: \.self) { pokemon in
+                                    let pokemon2 : Pokemon =  (pokemon) ?? defaultPokemon
+                                    PokemonView(pokemon: pokemon2, collected: model.collectedPokemon[pokemon2.id] ?? false)
                                 }
                             } else {
                                 //search active: only show pokemon that have search text in their name
                                 let searchedArray = client.allPokemon.values.filter{ $0?.name.contains((searchText).lowercased()) ?? false}
                                 ForEach(searchedArray, id: \.self) { pokemon in
-                                    PokemonView(pokemon: pokemon ?? defaultPokemon, collected: model.collectedPokemon[pokemon?.id ?? 0] ?? false)
+                                    PokemonView(pokemon: pokemon ?? defaultPokemon, collected: model.collectedPokemon[pokemon?.id ?? 0] ?? true)
                                     
                                 }
                             }
