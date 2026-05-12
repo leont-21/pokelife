@@ -58,6 +58,7 @@ struct GachaScreen: View {
                 
                 // make this initiate a "gacha game", activating GachaGame
                 Button(action: {
+                    // FIX THIS
                     model.gachaPlay()
                 }) {
                     Text("Spin for [ 1 ] ticket")

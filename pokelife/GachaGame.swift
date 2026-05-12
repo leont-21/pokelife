@@ -5,14 +5,14 @@ struct GachaGame: View {
     @Environment(GameModel.self) private var model
     
     // knob turning for gacha!
-    @State private var gachaOn = false
+    @State private var gachaStarted = false
+    @State private var gachaEnabled = true
     @State private var rotation: Angle = .zero
     @State private var arrowVis = true
     @State private var totalRotation: Int = 0
     
     var body: some View {
         ZStack {
-            // ADD BARS TO TOP & BOTTOM FOR VISUAL EFFECT
             Color(red: 1.0, green: 0.85, blue: 0.9)
                 .ignoresSafeArea()
             ZStack() {
@@ -23,7 +23,7 @@ struct GachaGame: View {
                 
                 Image("gachapon")
                 
-                if !gachaOn {
+                if !gachaStarted {
                     Image("arrow")
                         .opacity(arrowVis ? 1 : 0.7)
                         .animation (
@@ -42,13 +42,11 @@ struct GachaGame: View {
                 VStack {
                     Image("gachapon_knob")
                         .rotationEffect(rotation, anchor: .center)
-                        .gesture(
-                            DragGesture()
+                        .gesture(DragGesture()
                                 .onChanged { value in
-                                    gachaOn = true
                                         self.rotation = rotateKnob(position: value)
-                                }
-                        )
+                                        gachaStarted = true
+                                }, isEnabled: gachaEnabled)
                 }
                 .offset(x: 50, y: 100)
                 
@@ -75,15 +73,25 @@ struct GachaGame: View {
         if delta > 0 {
             if totalRotation < 1080 {
                 totalRotation += Int(delta)
-                
+                print("\(totalRotation)")
                 if totalRotation >= 1080 {
-                    // give the player a pokemon!!
+                    // deactivate knob & give the player a pokemon!!
+                    gachaEnabled = false
+                    let newPokemon = model.gachaPlay()
+                    // unwrap nil in displayNewPokemon(id: newPokemon)
                 }
             }
             return newAngle
         } else {
-            // go back to previous position if countercw
+            // stops knob from rotating ccw
             return rotation
+        }
+    }
+    
+    func displayNewPokemon(id: Int) {
+        // display new pokemon to player :D
+        VStack {
+            Text("You got \(id)!") // change so it shows actual name
         }
     }
 }
