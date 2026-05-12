@@ -55,11 +55,8 @@ struct GachaScreen: View {
                         .frame(maxWidth: 100, maxHeight: 100)
                         .offset(x: 60, y: 125)
                 }
-                
-                // make this initiate a "gacha game", activating GachaGame
                 Button(action: {
-                    // FIX THIS
-                    model.gachaPlay()
+                // !! make this initiate a "gacha game", activating GachaGame
                 }) {
                     Text("Spin for [ 1 ] ticket")
                         .font(.system(size: 20, weight: .bold))

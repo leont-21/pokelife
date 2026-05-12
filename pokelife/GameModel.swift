@@ -3,6 +3,7 @@ import SwiftUI
 
 @Observable
 class GameModel {
+    
     private(set) var menu: SelectedMenu = SelectedMenu.start
     // private(set) var gachaActivated = false
     private(set) var tickets = 0

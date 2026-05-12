@@ -3,6 +3,7 @@ import SwiftUI
 
 struct GachaGame: View {
     @Environment(GameModel.self) private var model
+    @Environment(NetworkClient.self) private var client: NetworkClient
     
     // knob turning for gacha!
     @State private var gachaStarted = false
@@ -77,21 +78,15 @@ struct GachaGame: View {
                 if totalRotation >= 1080 {
                     // deactivate knob & give the player a pokemon!!
                     gachaEnabled = false
-                    let newPokemon = model.gachaPlay()
-                    // unwrap nil in displayNewPokemon(id: newPokemon)
+                    
+                    // FIX!!
+                    let newPokemon = model.gachaPlay()!
+                    GachaReward(pokemonID: newPokemon)
                 }
             }
             return newAngle
-        } else {
-            // stops knob from rotating ccw
+        } else { // stops knob from rotating ccw
             return rotation
-        }
-    }
-    
-    func displayNewPokemon(id: Int) {
-        // display new pokemon to player :D
-        VStack {
-            Text("You got \(id)!") // change so it shows actual name
         }
     }
 }
