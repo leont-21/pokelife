@@ -33,7 +33,7 @@ struct ContentView: View {
             }
             .task {
                 for id in 1...1025{
-                    if(model.collectedPokemon[id] == nil){
+                    if(client.allPokemon[id] == nil){
                         //populate all_pokemon_array in client
                         await client.populateOneAllPokemon(id: id)
                         //add pokemon id to collected dictionary in model

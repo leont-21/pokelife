@@ -14,7 +14,7 @@ struct PokemonView: View {
     
     var body: some View {
         ZStack {
-            AsyncImage(url: URL(string: pokemon.shiny ? pokemon.sprites.frontShiny ?? "" : pokemon.sprites.frontDefault ?? "")) { image in
+            AsyncImage(url: URL(string: pokemon.shiny ? pokemon.sprites.frontShiny ?? "" : pokemon.sprites.frontDefault ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_HeSzHfBorKS4muw4IIeVvvRgnhyO8Gn8w&s")) { image in
                 image
                     .image?.resizable()
                     .brightness(collected ? 0 : -1)
