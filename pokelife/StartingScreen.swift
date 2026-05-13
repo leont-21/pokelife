@@ -17,7 +17,7 @@ struct StartingScreen: View {
                 Spacer()
                     .frame(height: 100)
                 Text("PokéLife")
-                    .font(.system(size: 80, weight: .bold, design: .rounded))
+                    .font(Font.custom("PixelOperator", size: 80))
                     .foregroundColor(.white)
                     .shadow(color: .black, radius: 2, x: 0, y: 2)
                     .multilineTextAlignment(.center)
@@ -34,7 +34,7 @@ struct StartingScreen: View {
                             )
                             .frame(width: 170, height: 170)
                         Text("Start Journey")
-                            .font(.title2)
+                            .font(Font.custom("PixelOperator", size: 25))
                             .fontWeight(.bold)
                             .foregroundStyle(Color.black)
                     }
