@@ -26,8 +26,9 @@ struct GachaScreen: View {
                             .font(.title)
                     }
                     Text("✨ Spin to get new Pokémon! ✨")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
                 }
-                .padding(.top, 50)
+                .padding(.top, 25)
                 .padding(.bottom, 10)
                 
                 HStack() {

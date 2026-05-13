@@ -8,22 +8,51 @@ struct GachaReward: View {
     let pokemonID: Int
     @State private var pokemon: Pokemon?
     @State private var pokemonName: String = ""
-    @State private var pokemonSprite: String = ""
+    @State private var pokemonSprite: URL? = URL(string: "")
     @State private var isLoading = false
     
     var body: some View {
         VStack {
             if isLoading {
                 ProgressView()
-            } else if let pokemon = pokemon {
+            } else if pokemon != nil {
                 ZStack {
+                    Rectangle()
+                        .foregroundColor(.gray)
+                        .frame(width: 300, height: 450)
+                        .clipShape(RoundedRectangle(cornerRadius: 36))
                     VStack {
-                        Rectangle()
-                            .foregroundColor(.gray)
-                            .frame(width: 200, height: 200)
-                            // .offset(y: -275)
-                        Text("You got \(pokemonName)!")
+                        AsyncImage(url: pokemonSprite) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 350, height: 350)
+                        .offset(y: -25)
                     }
+                    VStack {
+                        Text("You got \(pokemonName.capitalized)!")
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                        Button(action: {
+                            
+                        }) {
+                            Text("Ok")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding([.leading, .trailing], 20)
+                                .padding([.top, .bottom], 10)
+                                .background(Color(red: 0.8, green: 0.3, blue: 0.5))
+                                .cornerRadius(25)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
+                                )
+                        }
+                    }
+                    .offset(y: 125)
                 }
             }
         }
@@ -31,8 +60,17 @@ struct GachaReward: View {
             isLoading = true
             pokemon = await client.getPokemonData(id: pokemonID)!
             pokemonName = pokemon!.name
-            pokemonSprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemonID).png"
+            pokemonSprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/\(pokemonID).png")
             isLoading = false
         }
     }
 }
+
+#Preview {
+    NavigationStack {
+        GachaReward(pokemonID: 1)
+            .environment(GameModel())
+            .environment(NetworkClient())
+    }
+}
+
