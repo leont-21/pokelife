@@ -38,6 +38,10 @@ struct ContentView: View {
                         await client.populateOneAllPokemon(id: id)
                         //add pokemon id to collected dictionary in model
                         model.addIDtoCollectedPokemon(id: id)
+//                        if (Int.random(in: 1...10) == 1 || id == 681) {
+//                            //TESTING 10% chance to own a pokemon
+//                            model.collectPokemon(id: id)
+//                        }
                     }
                 }
             }

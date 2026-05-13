@@ -6,6 +6,7 @@ struct CollectionScreen: View {
     @Environment(NetworkClient.self) private var client: NetworkClient
 
     @State private var searchText = ""
+    @State private var filterOwned : Bool = false
     @FocusState private var searchIsActive : Bool
     
     let defaultPokemon = Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false)
@@ -36,20 +37,29 @@ struct CollectionScreen: View {
                     }
                     .padding(.top, 30)
                     
-                    //search bar
-                    ZStack(alignment: .trailing){
-                        //search bar text field
-                        TextField("Search for a pokemon", text: $searchText)
-                        .focused($searchIsActive)
-                        .textFieldStyle(.roundedBorder)
-                        //delete button
-                        Image(systemName: "delete.left.fill")
-                            .padding(.trailing)
-                            .foregroundStyle(.pink)
-                            .onTapGesture {
-                                searchText = ""
-                            }
-                            
+                    HStack(spacing: 4){
+                        //search bar
+                        ZStack(alignment: .trailing){
+                            //search bar text field
+                            TextField("Search for a pokemon", text: $searchText)
+                            .focused($searchIsActive)
+                            .textFieldStyle(.roundedBorder)
+                            //delete button
+                            Image(systemName: "delete.left.fill")
+                                .padding(.trailing)
+                                .foregroundStyle(.pink)
+                                .onTapGesture {
+                                    searchText = ""
+                                }
+                                
+                        }
+                        
+                        Button("Owned") {
+                            filterOwned = !filterOwned
+                        }
+                        .buttonBorderShape(.roundedRectangle)
+                        .buttonStyle(.borderedProminent)
+                        .tint(.pink)
                     }
                     .padding([.bottom, .leading, .trailing], 6)
 
@@ -75,13 +85,25 @@ struct CollectionScreen: View {
                             // IF SEARCH IS NOT ACTIVE
                             //loop through all pokemon list to get views for all pokemon
                             if (searchText.isEmpty) {
-                                ForEach(client.allPokemonArray, id: \.self) { pokemon in
+                                var array: [Pokemon?] {
+                                    filterOwned
+                                        ? client.allPokemonArray.filter { model.collectedPokemon[$0?.id ?? -1] ?? false }
+                                        : client.allPokemonArray
+                                }
+
+                                //if owned filter by pokemon owned
+                            
+                                ForEach(array, id: \.self) { pokemon in
                                     let pokemon2 : Pokemon =  (pokemon) ?? defaultPokemon
                                     PokemonView(pokemon: pokemon2, collected: model.collectedPokemon[pokemon2.id] ?? false)
                                 }
                             } else {
                                 //search active: only show pokemon that have search text in their name
-                                let searchedArray = client.allPokemon.values.filter{ $0?.name.contains((searchText).lowercased()) ?? false}
+                                var searchedArray: [Pokemon?] {
+                                    filterOwned
+                                        ? client.allPokemonArray.filter { (model.collectedPokemon[$0?.id ?? -1] ?? false) && ($0?.name.contains((searchText).lowercased()) ?? false) }
+                                        : client.allPokemonArray.filter{ $0?.name.contains((searchText).lowercased()) ?? false}
+                                }
                                 ForEach(searchedArray, id: \.self) { pokemon in
                                     PokemonView(pokemon: pokemon ?? defaultPokemon, collected: model.collectedPokemon[pokemon?.id ?? 0] ?? true)
                                     
