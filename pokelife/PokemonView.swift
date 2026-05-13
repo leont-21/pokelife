@@ -1,9 +1,3 @@
-//
-//  PokemonView.swift
-//  pokelife
-//
-//  Created by Student on 4/29/26.
-//
 
 import SwiftUI
 
