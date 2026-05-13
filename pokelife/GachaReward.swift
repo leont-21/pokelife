@@ -7,8 +7,8 @@ struct GachaReward: View {
     
     let pokemonID: Int
     @State private var pokemon: Pokemon?
-    @State private var pokemonName: String
-    @State private var pokemonSprite: String
+    @State private var pokemonName: String = ""
+    @State private var pokemonSprite: String = ""
     @State private var isLoading = false
     
     var body: some View {
