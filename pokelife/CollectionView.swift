@@ -54,12 +54,12 @@ struct CollectionScreen: View {
                                 
                         }
                         
-                        Button("Owned") {
+                        Button(filterOwned ? "Owned" : "All") {
                             filterOwned = !filterOwned
                         }
                         .buttonBorderShape(.roundedRectangle)
                         .buttonStyle(.borderedProminent)
-                        .tint(.pink)
+                        .tint(filterOwned ? .pink : .black)
                     }
                     .padding([.bottom, .leading, .trailing], 6)
 
