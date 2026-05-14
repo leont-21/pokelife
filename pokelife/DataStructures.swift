@@ -6,6 +6,8 @@ struct Pokemon : Identifiable, Decodable, Hashable {
     let id : Int
     let sprites : Sprites
     let name : String
+    let type1 : String
+    let type2 : String?
     let shiny : Bool
     
     
@@ -24,6 +26,7 @@ struct Pokemon : Identifiable, Decodable, Hashable {
         case id
         case name
         case sprites
+        case types
     }
     
 
@@ -34,7 +37,14 @@ struct Pokemon : Identifiable, Decodable, Hashable {
         self.id = try pokemon.decode(Int.self, forKey: .id)
         self.name = try pokemon.decode(String.self, forKey: .name)
         self.sprites = try pokemon.decode(Sprites.self, forKey: .sprites)
-        
+
+        let types = try pokemon.decode([TypeSlot].self, forKey: .types)
+        type1 = types[0].type.name
+        if (types.count > 1) {
+            type2 = types[1].type.name
+        } else {
+            type2 = nil
+        }
         shiny = false
     }
     
@@ -45,15 +55,24 @@ struct Pokemon : Identifiable, Decodable, Hashable {
         self.name = try pokemon.decode(String.self, forKey: .name)
         self.sprites = try pokemon.decode(Sprites.self, forKey: .sprites)
         
+        let types = try pokemon.decode([TypeSlot].self, forKey: .types)
+        type1 = types[0].type.name
+        if (types.count > 1) {
+            type2 = types[1].type.name
+        } else {
+            type2 = nil
+        }
         shiny = shiny_s
     }
     
     //debug: Directly create a pokemon without use of a json object
-    init (id : Int, sprite_path : Sprites, name : String, shiny : Bool) {
+    init (id : Int, sprite_path : Sprites, name : String, shiny : Bool, type1: String, type2: String?) {
         self.id = id
         self.name = name
         self.shiny = shiny
         self.sprites = sprite_path
+        self.type1 = type1
+        self.type2 = type2
     }
 }
 
@@ -69,6 +88,14 @@ struct Sprites: Decodable {
         case backDefault = "back_default"
         case backShiny = "back_shiny"
     }
+}
+
+struct TypeSlot: Decodable {
+    let type: PokeType
+}
+
+struct PokeType: Decodable {
+    let name: String
 }
 
 //Class for getting the results list of all pokemon

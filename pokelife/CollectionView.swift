@@ -9,7 +9,7 @@ struct CollectionScreen: View {
     @State private var filterOwned : Bool = false
     @FocusState private var searchIsActive : Bool
     
-    let defaultPokemon = Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false)
+    let defaultPokemon = Pokemon(id: 681, sprite_path: Sprites(frontDefault: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png", frontShiny: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/681.png", backDefault: "", backShiny: ""), name: "aegislash shield", shiny: false, type1: "ghost", type2: "steel")
     
     var body: some View {
         //navigation stack to make it searchable
