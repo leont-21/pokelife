@@ -20,6 +20,10 @@ class GameModel {
     func addTickets(amt: Int) {
         tickets += amt
     }
+    func spendTicket() {
+        guard tickets > 0 else { return }
+        tickets -= 1
+    }
     
     func gachaPlay() -> Int? {
         // adds new pokemon to collection & returns result to GachaGame()
