@@ -11,6 +11,7 @@ struct GachaGame: View {
     @State private var rotation: Angle = .zero
     @State private var arrowVis = true
     @State private var totalRotation: Int = 0
+    // @State private var wonPokemonID: Int? = nil
     
     var body: some View {
         ZStack {
@@ -80,8 +81,9 @@ struct GachaGame: View {
                     gachaEnabled = false
                     
                     // FIX!!
-                    let newPokemon = model.gachaPlay()!
-                    GachaReward(pokemonID: newPokemon)
+                    if let newPokemon = model.gachaPlay() {
+                        GachaReward(pokemonID: newPokemon)
+                    }
                 }
             }
             return newAngle
@@ -91,9 +93,14 @@ struct GachaGame: View {
     }
 }
 
+extension Int: @retroactive Identifiable {
+    public var id: Int { self }
+}
+
 #Preview {
     NavigationStack {
         GachaGame()
             .environment(GameModel())
+            .environment(NetworkClient())
     }
 }

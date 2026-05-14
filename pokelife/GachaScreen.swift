@@ -3,6 +3,7 @@ import SwiftUI
 struct GachaScreen: View {
     @Binding var selectedTab: Int
     @Environment(GameModel.self) private var model
+    @State private var showingGachaGame = false
     
     var body: some View {
         ZStack {
@@ -26,8 +27,9 @@ struct GachaScreen: View {
                             .font(.title)
                     }
                     Text("✨ Spin to get new Pokémon! ✨")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
                 }
-                .padding(.top, 50)
+                .padding(.top, 25)
                 .padding(.bottom, 10)
                 
                 HStack() {
@@ -56,7 +58,9 @@ struct GachaScreen: View {
                         .offset(x: 60, y: 125)
                 }
                 Button(action: {
-                // !! make this initiate a "gacha game", activating GachaGame
+                    if model.tickets >= 1 {
+                        showingGachaGame = true
+                    }
                 }) {
                     Text("Spin for [ 1 ] ticket")
                         .font(.system(size: 20, weight: .bold))
@@ -68,10 +72,17 @@ struct GachaScreen: View {
                             RoundedRectangle(cornerRadius: 15)
                                 .strokeBorder(Color.white.opacity(0.3), lineWidth: 1)
                         )
+                    
                 }
+                .disabled(model.tickets < 1)
             }
         }
         .navigationBarHidden(true)
+        .sheet(isPresented: $showingGachaGame) {
+                    GachaGame()
+                        .environment(model)
+                        .environment(NetworkClient())
+                }
     }
 }
 
