@@ -37,7 +37,9 @@ class GameModel {
     
     //adds a pokemon id to the collected pokemon list
     func addIDtoCollectedPokemon(id : Int) {
-        collectedPokemon[id] = false
+        if (collectedPokemon[id] == nil) {
+            collectedPokemon[id] = false
+        }
     }
     
     //sets an id in collected pokemon list to true
