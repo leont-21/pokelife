@@ -130,3 +130,28 @@ enum SelectedMenu { // selected screen
     case gacha
     case collection
 }
+
+
+//static class which stores a dictionary for type colors
+class TypeColors {
+    static let typeColors : [String : Color] = [
+        "bug" : Color(red: 0.4235, green: 0.5882, blue: 0.1647) /* #6c962a */,
+        "electric" : Color(red: 1, green: 0.9725, blue: 0.2784) /* #fff847 */,
+        "fire" : Color(red: 0.9294, green: 0.549, blue: 0.2588) /* #ed8c42 */,
+        "fighting" : Color(red: 0.7176, green: 0.2, blue: 0.2) /* #b73333 */,
+        "grass" : Color(red: 0.502, green: 1, blue: 0.4667) /* #80ff77 */,
+        "water" : Color(red: 0.1804, green: 0.5882, blue: 0.9176) /* #2e96ea */,
+        "ice" : Color(red: 0.7098, green: 1, blue: 0.9647) /* #b5fff6 */,
+        "flying" : Color(red: 0.7294, green: 0.8, blue: 1) /* #baccff */,
+        "rock" : Color(red: 0.5765, green: 0.5294, blue: 0.3882) /* #938763 */,
+        "ground" : Color(red: 0.9098, green: 0.7608, blue: 0.4902) /* #e8c27d */,
+        "steel" : Color(red: 0.6353, green: 0.6784, blue: 0.6706) /* #a2adab */,
+        "poison" : Color(red: 0.7176, green: 0.2196, blue: 0.8196) /* #b738d1 */,
+        "psychic" : Color(red: 0.9686, green: 0.3569, blue: 0.6745) /* #f75bac */,
+        "dark" : Color(red: 0.2196, green: 0.102, blue: 0.0392) /* #381a0a */,
+        "dragon" : Color(red: 0.3137, green: 0.2353, blue: 0.8196) /* #503cd1 */,
+        "fairy" : Color(red: 1, green: 0.7765, blue: 0.9765) /* #ffc6f9 */,
+        "ghost" : Color(red: 0.3176, green: 0.2078, blue: 0.4784) /* #51357a */,
+        "normal" : Color(red: 0.8588, green: 0.8588, blue: 0.8588) /* #dbdbdb */
+    ]
+}

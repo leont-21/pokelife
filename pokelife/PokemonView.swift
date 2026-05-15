@@ -5,9 +5,23 @@ struct PokemonView: View {
     @Environment(NetworkClient.self) private var client
     @State var pokemon: Pokemon
     let collected: Bool
+    var typeGradient : LinearGradient {
+        var colors = [TypeColors.typeColors[pokemon.type1] ?? .black]
+        if let type2 = pokemon.type2 {
+            colors.append(TypeColors.typeColors[type2] ?? .black)
+        }
+        return LinearGradient(colors: colors, startPoint: .top, endPoint: .bottom)
+    }
+    
     
     var body: some View {
         ZStack {
+            RoundedRectangle(cornerRadius: 12)
+                .backgroundStyle(typeGradient)
+            RoundedRectangle(cornerRadius: 12)
+                .backgroundStyle(typeGradient)
+                .brightness(0.5)
+                .frame(width: 140, height: 140)
             AsyncImage(url: URL(string: pokemon.shiny ? pokemon.sprites.frontShiny ?? "" : pokemon.sprites.frontDefault ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_HeSzHfBorKS4muw4IIeVvvRgnhyO8Gn8w&s")) { image in
                 image
                     .image?.resizable()
@@ -22,10 +36,6 @@ struct PokemonView: View {
             }
         }
         .frame(width: 150, height: 150)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.red, lineWidth: 3)
-            )
             .overlay(alignment: .topTrailing) {
                 Text("#\(pokemon.id)")
                     .padding([.top, .trailing], 5)
