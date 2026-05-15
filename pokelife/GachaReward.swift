@@ -4,12 +4,16 @@ import SwiftUI
 struct GachaReward: View {
     @Environment(GameModel.self) private var model: GameModel
     @Environment(NetworkClient.self) private var client: NetworkClient
+    @Environment(\.dismiss) private var dismiss
     
     let pokemonID: Int
     @State private var pokemon: Pokemon?
     @State private var pokemonName: String = ""
     @State private var pokemonSprite: URL? = URL(string: "")
     @State private var isLoading = false
+    @State private var isRewardDisplayed = true
+    
+    // FIX SHEET DISMISSAL
     
     var body: some View {
         VStack {
@@ -19,7 +23,7 @@ struct GachaReward: View {
                 ZStack {
                     Rectangle()
                         .foregroundColor(.gray)
-                        .frame(width: 300, height: 450)
+                        .frame(width: 350, height: 450)
                         .clipShape(RoundedRectangle(cornerRadius: 36))
                     VStack {
                         AsyncImage(url: pokemonSprite) { image in
@@ -33,11 +37,14 @@ struct GachaReward: View {
                         .offset(y: -25)
                     }
                     VStack {
-                        Text("You got \(pokemonName.capitalized)!")
-                            .font(.system(size: 28, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
+                        if isRewardDisplayed {
+                            Text("You got \(pokemonName.capitalized)!")
+                                .font(.system(size: 28, weight: .bold, design: .rounded))
+                                .foregroundColor(.white)
+                        }
                         Button(action: {
-                            
+                            isRewardDisplayed = false
+                            dismiss()
                         }) {
                             Text("Ok")
                                 .font(.system(size: 20, weight: .bold))

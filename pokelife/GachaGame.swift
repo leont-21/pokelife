@@ -11,7 +11,7 @@ struct GachaGame: View {
     @State private var rotation: Angle = .zero
     @State private var arrowVis = true
     @State private var totalRotation: Int = 0
-    // @State private var wonPokemonID: Int? = nil
+    @State private var wonPokemonID: Int? = nil
     
     var body: some View {
         ZStack {
@@ -44,13 +44,14 @@ struct GachaGame: View {
                 VStack {
                     Image("gachapon_knob")
                         .rotationEffect(rotation, anchor: .center)
+                        .contentShape(Rectangle())
+                        .offset(x: 50, y: 100)
                         .gesture(DragGesture()
                                 .onChanged { value in
                                         self.rotation = rotateKnob(position: value)
                                         gachaStarted = true
                                 }, isEnabled: gachaEnabled)
                 }
-                .offset(x: 50, y: 100)
                 
                 Rectangle()
                     .foregroundColor(.brown)
@@ -58,7 +59,22 @@ struct GachaGame: View {
                     .offset(y: 250)
             }
             .scaleEffect(1.5)
+            
+            if let pokemonID = wonPokemonID {
+                GachaReward(pokemonID: pokemonID)
+                    .zIndex(2)
+            }
         }
+        .onChange(of: totalRotation) { _, newValue in
+                    if newValue >= 1080 && gachaEnabled {
+                        gachaEnabled = false
+                        if let newPokemon = model.gachaPlay() {
+                            withAnimation {
+                                wonPokemonID = newPokemon
+                            }
+                        }
+                    }
+                }
     }
     
     // calculates angle relative to the center
@@ -66,8 +82,8 @@ struct GachaGame: View {
         let vector = CGVector(dx: position.location.x - 50, dy: position.location.y - 110)
         let radians = atan2(vector.dy, vector.dx)
         let newAngle = Angle(radians: Double(radians))
-        var delta = newAngle.degrees - rotation.degrees
         
+        var delta = newAngle.degrees - rotation.degrees
         if delta <= -180 { delta += 360 }
         if delta > 180 { delta -= 360 }
         
@@ -76,15 +92,6 @@ struct GachaGame: View {
             if totalRotation < 1080 {
                 totalRotation += Int(delta)
                 print("\(totalRotation)")
-                if totalRotation >= 1080 {
-                    // deactivate knob & give the player a pokemon!!
-                    gachaEnabled = false
-                    
-                    // FIX!!
-                    if let newPokemon = model.gachaPlay() {
-                        GachaReward(pokemonID: newPokemon)
-                    }
-                }
             }
             return newAngle
         } else { // stops knob from rotating ccw
