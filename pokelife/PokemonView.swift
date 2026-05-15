@@ -17,11 +17,16 @@ struct PokemonView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
-                .backgroundStyle(typeGradient)
-            RoundedRectangle(cornerRadius: 12)
-                .backgroundStyle(typeGradient)
-                .brightness(0.5)
-                .frame(width: 140, height: 140)
+                .brightness((pokemon.type2 != nil) ? 0.001 : 0.2)
+                .foregroundStyle(typeGradient)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(
+                            typeGradient,
+                            lineWidth: 4
+                        )
+                        .rotationEffect(.degrees(180))
+                )
             AsyncImage(url: URL(string: pokemon.shiny ? pokemon.sprites.frontShiny ?? "" : pokemon.sprites.frontDefault ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw_HeSzHfBorKS4muw4IIeVvvRgnhyO8Gn8w&s")) { image in
                 image
                     .image?.resizable()
