@@ -44,6 +44,7 @@ struct GachaReward: View {
                         }
                         Button(action: {
                             isRewardDisplayed = false
+                            dismiss()
                         }) {
                             Text("Ok")
                                 .font(.system(size: 20, weight: .bold))
