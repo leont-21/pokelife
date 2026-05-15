@@ -59,7 +59,6 @@ struct GachaScreen: View {
                 }
                 Button(action: {
                     if model.tickets >= 1 {
-                        model.spendTicket()
                         showingGachaGame = true
                     }
                 }) {
