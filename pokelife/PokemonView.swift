@@ -38,7 +38,7 @@ struct PokemonView: View {
             VStack {
                 Text("")
                     .frame(height: 100)
-                Text(pokemon.name)
+                Text(pokemon.name.capitalized)
                     .foregroundStyle( PokemonView.lightTypes.contains(pokemon.type2 ?? "") || (pokemon.type2 == nil && PokemonView.lightTypes.contains(pokemon.type1) ) ? .black : .white)
             }
         }
