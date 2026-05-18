@@ -13,8 +13,6 @@ struct GachaReward: View {
     @State private var isLoading = false
     @State private var isRewardDisplayed = true
     
-    // FIX SHEET DISMISSAL
-    
     var body: some View {
         VStack {
             if isLoading {
