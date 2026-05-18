@@ -4,6 +4,7 @@ import SwiftUI
 struct PokemonView: View {
     @Environment(NetworkClient.self) private var client
     @State var pokemon: Pokemon
+    static let lightTypes = ["normal", "flying", "ice", "electric", "grass", "fairy", "ground"]
     let collected: Bool
     var typeGradient : LinearGradient {
         var colors = [TypeColors.typeColors[pokemon.type1] ?? .black]
@@ -38,6 +39,7 @@ struct PokemonView: View {
                 Text("")
                     .frame(height: 100)
                 Text(pokemon.name)
+                    .foregroundStyle( PokemonView.lightTypes.contains(pokemon.type2 ?? "") || (pokemon.type2 == nil && PokemonView.lightTypes.contains(pokemon.type1) ) ? .black : .white)
             }
         }
         .frame(width: 150, height: 150)
