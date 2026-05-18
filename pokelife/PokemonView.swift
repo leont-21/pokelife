@@ -37,7 +37,7 @@ struct PokemonView: View {
             VStack {
                 Text("")
                     .frame(height: 100)
-                Text(pokemon.name)
+                Text(pokemon.name.capitalized)
             }
         }
         .frame(width: 150, height: 150)
